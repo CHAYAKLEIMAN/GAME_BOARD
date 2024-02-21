@@ -1,0 +1,140 @@
+import React, { useState } from 'react';
+//Insert questions into the array as you wish
+//Each question should have the structure of a question, options and an answer.
+//for example:
+// {
+//     question: 'What is the capital of France?',
+//     options: ['London', 'Paris', 'Berlin', 'Madrid'],
+//     answer: 'Paris'
+//   }
+// import { Button, Typography, makeStyles } from '@mui/material @emotion/react @emotion/style @mui/icons-material ';
+
+
+// const useStyles = makeStyles({
+//   button: {
+//     margin: '0.5rem',
+//     padding: '0.5rem 1rem',
+//     backgroundColor: '#2196f3',
+//     color: 'white',
+//     borderRadius: '5px',
+//     cursor: 'pointer',
+//   },
+// });
+
+const questions = [
+  {
+    question: 'What is the largest planet in our solar system?',
+    options: ['Mars', 'Jupiter', 'Saturn', 'Earth'],
+    answer: 'Jupiter'
+  },
+  {
+    question: 'Who wrote the famous play "Romeo and Juliet"?',
+    options: ['William Shakespeare', 'Charles Dickens', 'Jane Austen', 'Mark Twain'],
+    answer: 'William Shakespeare'
+  },
+  {
+    question: 'Which mammal can fly?',
+    options: ['Bat', 'Elephant', 'Giraffe', 'Lion'],
+    answer: 'Bat'
+  },
+  {
+    question: 'What is the tallest mountain in the world?',
+    options: ['Mount Kilimanjaro', 'Mount Everest', 'K2', 'Matterhorn'],
+    answer: 'Mount Everest'
+  }
+];
+// const Question = ({ question, options, handleOptionSelect }) => {
+//   const classes = useStyles();
+
+//   return (
+//     <>
+//       <Typography variant="h5">{question}</Typography>
+//       <div>
+//         {options.map((option, index) => (
+//           <Button
+//             key={index}
+//             className={classes.button}
+//             onClick={() => handleOptionSelect(option)}
+//           >
+//             {option}
+//           </Button>
+//         ))}
+//       </div>
+//     </>
+//   );
+// };
+
+
+const Question = ({ question, options, handleOptionSelect }) => {
+  return (
+    <>
+            <p>{question}</p>
+            <div>
+            {options.map((option, index) => 
+   <button key={index} onClick={() => handleOptionSelect(option)}></button>
+            )} 
+            </div>
+            </>
+    ////Design the component using MUI
+  );
+};
+
+
+const TriviaGame = () => {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [showResult, setShowResult] = useState(false);
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+//Put the selection into the appropriate variable
+};
+
+  const handleNextQuestion = () => {
+    if (selectedOption === questions[currentQuestion].answer) {
+      setScore(score + 1);
+      //Add a point to the user.
+    }
+    setSelectedOption('');
+    if (currentQuestion + 1 < questions.length) {
+      setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+    } else {
+      setShowResult(true);
+    }
+  };
+
+  const handleRestart = () => {
+    setCurrentQuestion(0);
+    setScore(0);
+    setSelectedOption('');
+    setShowResult(false);
+    //Initialize all variables.
+  };
+
+  return (
+    <div>
+      {showResult ? (
+        <div>
+          <h1>Trivia Game Result</h1>
+          <p>Your score: </p>
+          <button onClick={handleRestart}>Restart Game</button>
+        </div>
+      ) : (
+        <div>
+          <h1>Trivia Game</h1>
+          <p>Question {currentQuestion + 1} of {questions.length}</p>
+          <Question
+          question={questions[currentQuestion].question}
+          options={questions[currentQuestion].options}
+          handleOptionSelect={handleOptionSelect}
+          //Pass as props the variables question, options, handleOptionSelect
+          />
+          <button disabled={!selectedOption} onClick={handleNextQuestion}>Next</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default TriviaGame;
