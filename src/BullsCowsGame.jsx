@@ -14,45 +14,69 @@ const generateSecretNumber = () => {
 const BullsCowsGame = () => {
   //Create the following variables using useState:
   // secret, attempts
+  const [secret, setSecret] = useState(generateSecretNumber());
+  const [attempts, setAttempts] = useState(0);
+
   const [guess, setGuess] = useState('');
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState('start game');
 
   const handleGuessChange = (event) => {
     //Put the guess from the user into the corresponding variable.
+    setGuess(event.target.value)
   };
 
   const handleGuessSubmit = (event) => {
     event.preventDefault();
     if (guess.length !== 4 || !/^\d{4}$/.test(guess)) {
-      alert('Please enter a 4-digit number.');
+      alert('Please enter a 4-digit number.');     
       return;
     }
-    //create normal variables for numbering bulls and cows, reset them.
-   
-     //Check the guess entered by the user.
-     // If he entered a digit that is the same as the digit that is in the same position in the random number, his bolus number increases,
-     // If the guess he entered contains one of the digits in the random number, his number of hits increases.
-     //If he has 4 balls, notify the user using the result variable.
 
-     //Initialize the guess variable at the end of the function.
-     //increase by 1 the number of guesses. 
+    let bulls = 0
+    let cows = 0
+
+    for (let i = 0; i < guess.length; i++) {
+      if (guess[i] === secret[i]) {
+        bulls++; 
+      } else if (secret.includes(guess[i])) {
+        cows++; 
+      }
+    }
+     
+    if (bulls === 4) {
+      setResult('Congratulations! You guessed the number correctly.');
+    } else {
+      setResult(`Bulls: ${bulls}, Cows: ${cows}`);
+    }
+
+    setGuess('');
+
+     const currentAttemts = attempts + 1;
+     setAttempts(currentAttemts)
   };
 
   const handleRestart = () => {
     //Initialize all variables.
-   
+    setSecret(generateSecretNumber());
+    setAttempts(0); 
+    setGuess('');
+    setResult('start game');
   };
 
   return (
     <div>
       <h1>Bulls and Cows Game</h1>
-      <p>Attempts:</p> 
+      <p>Attempts: {attempts}</p> 
       <p>{result}</p>
       <form onSubmit={handleGuessSubmit}>
         <input type="text" value={guess} onChange={handleGuessChange} />
+
         <button type="submit">Guess</button>
       </form>
       <button onClick={handleRestart}>Restart Game</button>
+      <p>secret: {secret}</p>
+
+ 
     </div>
   );
 };
