@@ -8,7 +8,7 @@ const ArithmeticGameUI = ({ message, sequence, userInput, handleInputChange, che
       <p>{
         // Show the message
         }</p>
-      <p>Sequence: {sequence.join(', ')}</p>
+      {/* <p>Sequence: {sequence.join(', ')}</p> */}
       <label>Next term: </label>
      {/* Create an input of type number,
         Enter the appropriate value for it and by clicking direct it to the threatening function */}
