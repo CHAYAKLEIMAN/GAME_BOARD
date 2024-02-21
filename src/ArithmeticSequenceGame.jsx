@@ -11,7 +11,9 @@ const ArithmeticSequenceGame = () => {
 
 //Write a useEffect that is performed only when the component rises,
 // call the generateSequence function  useEffect(() => {
-  
+  useEffect(() => {
+    generateSequence()
+}, [])
 
   const generateSequence = () => {
     const initialTerm = Math.floor(Math.random() * 10);
@@ -28,6 +30,8 @@ const ArithmeticSequenceGame = () => {
 
   const handleInputChange = (event) => {
     //Put the input into the appropriate variable
+    setUserInput(event.target.value)
+
   };
 
   const checkAnswer = () => {
@@ -35,16 +39,27 @@ const ArithmeticSequenceGame = () => {
      //Notify the user that he succeeded in setting the message variable.
        //Initialize the user input.
        //Create another series.
+       setMessage("succeeded")
+       setUserInput('')
+       setNextTerm(sequence)
+
      
     } else {
      //Notify the user that failed in the message variable.
        //End the game
+       setMessage("failed game over")
+
     }
   };
 
   return (
-    <ArithmeticGameUI
+    <ArithmeticGameUI 
     // Pass as props the variables: message, sequence, userInput, handleInputChange, checkAnswer
+    message={message}
+    sequence={sequence}
+    userInput={userInput}
+    handleInputChange={handleInputChange}
+    checkAnswer={checkAnswer}
     />
   );
 };
