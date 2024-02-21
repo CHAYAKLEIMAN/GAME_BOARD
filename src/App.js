@@ -5,6 +5,7 @@ import NumberGuessingGame from './NumberGuessingGame';
 import TriviaGame from './TriviaGame';
 import SequenceGame from './ArithmeticSequenceGame';
 import ArithmeticSequenceGame from './ArithmeticSequenceGame';
+// import ArithmeticGameUI from './ArithmeticGameUI;'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
     <NumberGuessingGame/>
     <TriviaGame/>
     <ArithmeticSequenceGame/>
+   {/* <ArithmeticGameUI></ArithmeticGameUI> */}
     </div>
   );
 }
