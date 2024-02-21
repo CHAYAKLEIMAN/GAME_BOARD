@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
+import { TextField, Button, Typography, Container, Box } from '@mui/material';
 
 const generateSecretNumber = () => {
-  return Math.floor(Math.random() * 100) + 1;
+  return Math.floor(Math.random() * 100) + 1; // Function to generate a random number between 1 and 100
 };
 
 const NumberGuessingGame = () => {
-   //Create the following variables using useState:
-  // secret, attempts
   const [guess, setGuess] = useState('');
   const [result, setResult] = useState('');
 
   const handleGuessChange = (event) => {
-    //Put the guess from the user into the corresponding variable.
+    setGuess(event.target.value);
   };
 
   const handleGuessSubmit = (event) => {
@@ -21,28 +20,33 @@ const NumberGuessingGame = () => {
       alert('Please enter a number between 1 and 100.');
       return;
     }
-   // check if the number entered matches the random number ,
-       // If it doesn't fit, check if it's bigger or smaller than it.
-       //Notify the user using the result variable.
-       //initialize the guess variable.
-  
+
+    setResult(numGuess === generateSecretNumber() ? 'Congratulations! You guessed the number!' : `Try again. The secret number is ${generateSecretNumber()}`);
+    setGuess('');
   };
 
   const handleRestart = () => {
-    //Initialize all variables.
+    setGuess('');
+    setResult('');
   };
 
   return (
-    <div>
-      <h1>Number Guessing Game</h1>
-      <p>Attempts: </p>
-      <p>{result}</p>
-      <form onSubmit={handleGuessSubmit}>
-        <input type="number" value={guess} onChange={handleGuessChange} />
-        <button type="submit">Guess</button>
-      </form>
-      <button onClick={handleRestart}>Restart Game</button>
-    </div>
+    <Container maxWidth="sm">
+      <Box mt={5} p={3} boxShadow={3} borderRadius={8}>
+        <Typography variant="h4" align="center" gutterBottom>Number Guessing Game</Typography>
+        <Typography align="center" gutterBottom>Attempts: </Typography>
+        <Typography align="center" variant="h5">{result}</Typography>
+        <form onSubmit={handleGuessSubmit}>
+          <TextField type="number" value={guess} onChange={handleGuessChange} fullWidth variant="outlined" label="Enter your guess" />
+          <Box mt={2}>
+            <Button type="submit" variant="contained" color="primary" fullWidth>Guess</Button>
+          </Box>
+        </form>
+        <Box mt={2} display="flex" justifyContent="center">
+          <Button onClick={handleRestart} variant="contained" color="secondary">Restart Game</Button>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 
