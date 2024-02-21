@@ -4,7 +4,7 @@
 Task division:
 Sari Hopshtain - BullsCowsGame component.
 
-Ofra  - menu item.
+Chaya  - menu item.
 
 Shiri - The Question component includes inserting questions into the array.
 
@@ -14,5 +14,5 @@ Tair- NumberGuessingGame component.
 
 Shir - ArithmeticSequenceGame component.
 
-Chaya - ArithmeticGameUI component.
+Ofra - ArithmeticGameUI component.
 
